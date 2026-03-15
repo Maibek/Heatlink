@@ -1,0 +1,19 @@
+# Python
+__pycache__/
+bot/venv/
+*.py[cod]
+.env
+venv/
+*.log
+
+# PlatformIO
+.pio/
+.pioenvs/
+.piolibdeps/
+.vscode/
+
+# Secrets
+*.pem
+config.json
+.env
+firmware/include/secrets.h
