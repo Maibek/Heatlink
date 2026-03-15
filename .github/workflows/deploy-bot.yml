@@ -4,7 +4,7 @@ on:
   push:
     branches: [ master ]
   schedule:
-    - cron: '0 3 * * *'   # каждый день в 03:00 UTC
+    - cron: '0 3 * * *'  
 
 jobs:
   deploy:
@@ -16,7 +16,7 @@ jobs:
       - name: Deploy via rsync
         uses: burnett01/rsync-deployments@6.0.0
         with:
-          switches: -avz --delete --include='bot/***' --include='requirements.txt' --exclude='.env' --exclude='*'
+          switches: -avz --delete --include='bot/***' --include='web/***' --include='requirements.txt' --exclude='.env' --exclude='*'
           path: ./
           remote_path: /opt/Heatlink
           remote_host: ${{ secrets.VPS_HOST }}
