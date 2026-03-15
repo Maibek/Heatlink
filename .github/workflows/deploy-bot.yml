@@ -3,6 +3,8 @@ name: Deploy to VPS
 on:
   push:
     branches: [ master ]
+  schedule:
+    - cron: '0 3 * * *'   # каждый день в 03:00 UTC
 
 jobs:
   deploy:
@@ -11,15 +13,12 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Deploy to server via SSH
-        uses: appleboy/ssh-action@v1.0.0
+      - name: Deploy via rsync
+        uses: burnett01/rsync-deployments@6.0.0
         with:
-          host: ${{ secrets.VPS_HOST }}
-          username: ${{ secrets.VPS_USER }}
-          key: ${{ secrets.DEPLOY_KEY }}
-          script: |
-            cd /opt/Heatlink
-            git pull origin main
-            source venv/bin/activate
-            pip install -r requirements.txt --upgrade
-            sudo systemctl restart heatlink-bot.service
+          switches: -avz --delete --include='bot/***' --include='requirements.txt' --exclude='.env' --exclude='*'
+          path: ./
+          remote_path: /opt/Heatlink
+          remote_host: ${{ secrets.VPS_HOST }}
+          remote_user: ${{ secrets.VPS_USER }}
+          remote_key: ${{ secrets.DEPLOY_KEY }}

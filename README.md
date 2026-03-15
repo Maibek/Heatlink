@@ -12,8 +12,6 @@ MQTT_HOST           = "our_vps_ip_or_domain"
 MQTT_PORT           = "1883"
 MQTT_USER           = "your_mqtt_user"
 MQTT_PASSWORD       = "your_mqtt_password"
-VPS_HOST            = "Host IP"
-VPS_USER            = "Host user"
 
 # WiFi для ESP32
 WIFI_SSID           = YourWiFiSSID
